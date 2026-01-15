@@ -33,6 +33,28 @@ include 'koneksi.php';
         .btn:hover {
             background-color: #218838;
         }
+        .btn-edit {
+            background: #2980b9;
+            color: #fff;
+            padding: 5px 10px;
+            text-decoration: none;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+        .btn-edit:hover {
+            background: #21618c;
+        }
+        .btn-hapus {
+            background: #c0392b;
+            color: #fff;
+            padding: 5px 10px;
+            text-decoration: none;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+        .btn-hapus:hover {
+            background: #a93226;
+        }
     </style>
 </head>
 <body>
@@ -47,6 +69,7 @@ include 'koneksi.php';
         <th>Harga</th>
         <th>Stok</th>
         <th>Satuan</th>
+        <th>Aksi</th> <!-- Kolom baru untuk aksi -->
     </tr>
 
 <?php
@@ -60,6 +83,10 @@ while ($data = mysqli_fetch_assoc($query)) {
     echo "<td>".$data['harga']."</td>";
     echo "<td>".$data['stok']."</td>";
     echo "<td>".$data['satuan']."</td>";
+    echo "<td>";
+    echo "<a href='pages/edit-product.php?id=".$data['id_barang']."' class='btn-edit'>Edit</a> ";
+    echo "<a href='pages/hapus-product.php?id=".$data['id_barang']."' class='btn-hapus' onclick='return confirm(\"Yakin ingin menghapus produk ini?\")'>Hapus</a>";
+    echo "</td>";
     echo "</tr>";
 }
 ?>
