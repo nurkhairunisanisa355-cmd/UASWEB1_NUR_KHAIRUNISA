@@ -145,45 +145,17 @@ if (!in_array($page, $allowed_pages)) {
 </div>
 
 <div class="content">
-
 <?php
-if ($page == 'produk') {
+    if ($page == 'home') {
+        echo "<h2>Welcome Dashboard POLGANMART</h2>";
+    } elseif ($page == 'produk') {
+        include 'pages/listproduct.php';
+    } elseif ($page == 'profile') {
+        // Jika ada file profile.php di folder pages, include di sini
+        // include 'pages/profile.php';
+        echo "<h2>My Profile</h2><p>Profile content here.</p>"; // Placeholder jika belum ada
+    }
 ?>
-    <h3>List Product</h3>
-    <table>
-        <tr>
-            <th>No</th>
-            <th>Kode Barang</th>
-            <th>Nama Barang</th>
-            <th>Kategori</th>
-            <th>Harga</th>
-            <th>Stok</th>
-            <th>Satuan</th>
-        </tr>
-
-        <?php
-        $no = 1;
-        $query = mysqli_query($koneksi, "SELECT * FROM barang");
-        while ($data = mysqli_fetch_assoc($query)) {
-            echo "<tr>
-                    <td>{$no}</td>
-                    <td>{$data['kode_barang']}</td>
-                    <td>{$data['nama_barang']}</td>
-                    <td>{$data['kategori']}</td>
-                    <td>{$data['harga']}</td>
-                    <td>{$data['stok']}</td>
-                    <td>{$data['satuan']}</td>
-                  </tr>";
-            $no++;
-        }
-        ?>
-    </table>
-<?php
-} else {
-    echo "<h2>Welcome Dashboard POLGANMART</h2>";
-}
-?>
-
 </div>
 
 <script>
