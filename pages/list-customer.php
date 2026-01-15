@@ -39,6 +39,36 @@ $query = mysqli_query($koneksi, "SELECT * FROM pelanggan");
             background: #219150;
         }
 
+        /* Tombol aksi (Edit dan Hapus) */
+        .btn-aksi {
+            display: inline-block;
+            padding: 5px 10px;
+            margin: 2px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .btn-edit {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-edit:hover {
+            background: #2980b9;
+        }
+
+        .btn-hapus {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn-hapus:hover {
+            background: #c0392b;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -68,6 +98,14 @@ $query = mysqli_query($koneksi, "SELECT * FROM pelanggan");
             text-decoration: none;
         }
     </style>
+    <script>
+        // Fungsi konfirmasi hapus
+        function confirmDelete(id) {
+            if (confirm("Apakah Anda yakin ingin menghapus pelanggan ini?")) {
+                window.location.href = "hapus_pelanggan.php?id=" + id;
+            }
+        }
+    </script>
 </head>
 <body>
 
@@ -75,8 +113,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM pelanggan");
     <h2>Data Pelanggan</h2>
 
     <!-- Tombol Tambah Customer -->
-   <a href="pages/tambah-customer.php" class="btn-tambah">+ Tambah Customer</a>
-
+    <a href="pages/tambah-customer.php" class="btn-tambah">+ Tambah Customer</a>
 
     <table>
         <tr>
@@ -86,6 +123,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM pelanggan");
             <th>Alamat</th>
             <th>No HP</th>
             <th>Email</th>
+            <th>Aksi</th> <!-- Kolom baru untuk tombol -->
         </tr>
 
         <?php
@@ -99,6 +137,12 @@ $query = mysqli_query($koneksi, "SELECT * FROM pelanggan");
             <td><?= $data['alamat']; ?></td>
             <td><?= $data['no_hp']; ?></td>
             <td><?= $data['email']; ?></td>
+            <td>
+                <!-- Tombol Edit -->
+                <a href="pages/edit-pelanggan.php" class="btn-tambah">edit customer</a>
+                <!-- Tombol Hapus dengan konfirmasi -->
+                <a href="#" onclick="confirmDelete('<?= $data['kode_pelanggan']; ?>')" class="btn-aksi btn-hapus">Hapus</a>
+            </td>
         </tr>
         <?php } ?>
     </table>

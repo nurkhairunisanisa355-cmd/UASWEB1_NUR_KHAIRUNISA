@@ -90,6 +90,5 @@ $data = mysqli_fetch_assoc(
 <input type="text" name="satuan" value="<?= $data['satuan'] ?? ''; ?>" >
         </div>
         <button type="submit" name="update" class="btn-edit">Update</button>
-        <a href="dashboard.php?page=listproducts" class="btn-hapus">Batal</a>
-    </form>
+ <a href="../dashboard.php" class="btn-back">⬅ Kembali ke Dashboard</a>
 </div>

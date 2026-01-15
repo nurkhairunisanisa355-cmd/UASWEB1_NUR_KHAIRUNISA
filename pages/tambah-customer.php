@@ -2,21 +2,20 @@
 include '../koneksi.php';
 
 $id = $_GET['id'] ?? '';
+$data = [];
 
 if ($id != '') {
-    // mode EDIT → ambil data dari database
-} else {
-    // mode TAMBAH → form kosong
+    // MODE EDIT
+    $query = mysqli_query($koneksi, "SELECT * FROM pelanggan WHERE id_pelanggan='$id'");
+    $data = mysqli_fetch_assoc($query);
 }
-$query = mysqli_query($koneksi, "SELECT * FROM pelanggan WHERE id_pelanggan='$id'");
-$data = mysqli_fetch_assoc($query);
 ?>
 
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Edit Customer</title>
+    <title><?= $id ? 'Edit' : 'Tambah'; ?> Customer</title>
     <style>
         body {
             font-family: Arial;
@@ -43,39 +42,51 @@ $data = mysqli_fetch_assoc($query);
         button:hover {
             background: #2980b9;
         }
-        a {
+        .btn-back {
             display: block;
             margin-top: 10px;
             text-align: center;
+            background: #95a5a6;
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        .btn-back:hover {
+            background: #7f8c8d;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>Edit Customer</h2>
+    <h2><?= $id ? 'Edit' : 'Tambah'; ?> Customer</h2>
 
-    <form action="update-customer.php" method="post">
-        <input type="hidden" name="id_pelanggan" value="<?= $data['id_pelanggan']; ?>">
+    <form action="<?= $id ? 'update-customer.php' : 'simpan-customer.php'; ?>" method="post">
+        <?php if ($id): ?>
+            <input type="hidden" name="id_pelanggan" value="<?= $data['id_pelanggan']; ?>">
+        <?php endif; ?>
 
         <label>Kode Pelanggan</label>
-        <input type="text" name="kode_pelanggan" value="<?= $data['kode_pelanggan']; ?>" required>
+        <input type="text" name="kode_pelanggan" value="<?= $data['kode_pelanggan'] ?? ''; ?>" required>
 
         <label>Nama Pelanggan</label>
-        <input type="text" name="nama_pelanggan" value="<?= $data['nama_pelanggan']; ?>" required>
+        <input type="text" name="nama_pelanggan" value="<?= $data['nama_pelanggan'] ?? ''; ?>" required>
 
         <label>Alamat</label>
-        <textarea name="alamat" required><?= $data['alamat']; ?></textarea>
+        <textarea name="alamat" required><?= $data['alamat'] ?? ''; ?></textarea>
 
         <label>No HP</label>
-        <input type="text" name="no_hp" value="<?= $data['no_hp']; ?>" required>
+        <input type="text" name="no_hp" value="<?= $data['no_hp'] ?? ''; ?>" required>
 
         <label>Email</label>
-        <input type="email" name="email" value="<?= $data['email']; ?>">
+        <input type="email" name="email" value="<?= $data['email'] ?? ''; ?>">
 
-        <button type="submit">Update</button>
-        <a href="list-customer.php">Kembali</a>
+        <button type="submit"><?= $id ? 'Update' : 'Simpan'; ?></button>
     </form>
+
+    <!-- Tombol kembali ke dashboard -->
+    <a href="../dashboard.php" class="btn-back">⬅ Kembali ke Dashboard</a>
 </div>
 
 </body>
