@@ -4,7 +4,7 @@ include 'koneksi.php'; // WAJIB agar $koneksi dikenali
 
 // keamanan page
 $page = $_GET['page'] ?? 'home';
-$allowed_pages = ['home', 'profile', 'produk'];
+$allowed_pages = ['home', 'profile', 'produk', 'customer']; // Tambahkan 'customer' ke allowed pages
 if (!in_array($page, $allowed_pages)) {
     $page = 'home';
 }
@@ -127,7 +127,7 @@ if (!in_array($page, $allowed_pages)) {
     <h2>Dashboard</h2>
     <a href="dashboard.php">Home</a>
     <a href="dashboard.php?page=produk">List Produk</a>
-    <a href="#">Customer</a>
+    <a href="dashboard.php?page=customer">Customer</a> <!-- Ubah link Customer agar mengarah ke dashboard.php?page=customer -->
     <a href="#">Transaksi</a>
     <a href="#">Laporan</a>
 </div>
@@ -150,6 +150,8 @@ if (!in_array($page, $allowed_pages)) {
         echo "<h2>Welcome Dashboard POLGANMART</h2>";
     } elseif ($page == 'produk') {
         include 'pages/listproduct.php';
+    } elseif ($page == 'customer') { // Tambahkan kondisi untuk page customer
+        include 'pages/list-customer.php'; // Include file list-customer.php
     } elseif ($page == 'profile') {
         // Jika ada file profile.php di folder pages, include di sini
         // include 'pages/profile.php';
