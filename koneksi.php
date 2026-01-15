@@ -1,13 +1,7 @@
 <?php
-$host = "localhost";
-$user = "root";
-$pass = "";
-$db   = "db_penjualan2"; // Sesuaikan dengan nama database Anda di phpMyAdmin
+$koneksi = mysqli_connect("localhost", "root", "", "db_penjualan2");
 
-$conn = mysqli_connect($host, $user, $pass, $db);
-
-// Cek koneksi
-if (!$conn) {
+if (!$koneksi) {
     die("Koneksi gagal: " . mysqli_connect_error());
 }
 ?>
